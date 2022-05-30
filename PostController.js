@@ -19,6 +19,45 @@ class PostController {
             res.status(500).json(e);
         }
     }
+
+    async getPost(req, res) {
+        try {
+            const { id } = req.params;
+            if (!id) {
+                return res.status(400).json({ message: "Id not found" });
+            }
+            const post = await Post.findById(id);
+            res.json(post);
+        } catch (e) {
+            res.status(500).json(e);
+        }
+    }
+
+    async updatePost(req, res) {
+        try {
+            const post = req.body;
+            if (!post._id) {
+                res.status(400).json({ message: "Id not found" });
+            }
+            const updatedPost = await Post.findByIdAndUpdate(post._id, post, { new: true });
+            res.json(updatedPost);
+        } catch (e) {
+            res.status(500).json(e);
+        }
+    }
+
+    async deletePost(req, res) {
+        try {
+            const { id } = req.params;
+            if (!id) {
+                res.status(400).json({ message: "Id not found" });
+            }
+            const post = await Post.findOneAndDelete(id);
+            res.json(post);
+        } catch (e) {
+            res.status(500).json(e);
+        }
+    }
 }
 
 export default new PostController();
