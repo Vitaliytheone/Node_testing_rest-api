@@ -10,6 +10,15 @@ class PostController {
             res.status(500).json(e);
         }
     }
+
+    async getAll(_, res) {
+        try {
+            const posts = await Post.find();
+            return res.json(posts);
+        } catch (e) {
+            res.status(500).json(e);
+        }
+    }
 }
 
 export default new PostController();
