@@ -9,6 +9,7 @@ const DB_URL = `mongodb+srv://vitaliy:user@cluster0.nytbp.mongodb.net/?retryWrit
 
 app.use(express.json());
 app.use("/api", router);
+app.use(express.static("static"));
 app.use(fileUpload());
 
 async function createApp() {
